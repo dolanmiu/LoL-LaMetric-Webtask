@@ -1,0 +1,39 @@
+{
+  "name": "lol-lametric-webtask",
+  "version": "1.0.0",
+  "description": "League of Legends LaMetric Webtask",
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "tslint --project .",
+    "tsc": "rimraf dist && tsc --p .",
+    "deploy": "wt update lol-lametric dist/index.js -b",
+    "build": "npm run tsc && copyfiles package.json dist",
+    "spell": "cspell \"src/**/!(*.wav|*.mp3).*\"",
+    "style": "prettier -l \"src/**/*.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Dolan Miu",
+  "license": "MIT",
+  "homepage": "https://github.com/dolanmiu/LoL-LaMetric-Webtask#readme",
+  "devDependencies": {
+    "copyfiles": "2.1.0",
+    "prettier": "1.14.3",
+    "rimraf": "2.6.2",
+    "tslint": "5.11.0",
+    "typescript": "3.0.3",
+    "wt-cli": "11.0.0"
+  },
+  "dependencies": {
+    "@types/request-promise": "4.1.42",
+    "babel-core": "6.26.3",
+    "babel-loader": "8.0.2",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-stage-0": "6.24.1",
+    "request": "2.88.0",
+    "request-promise": "4.2.2"
+  }
+}

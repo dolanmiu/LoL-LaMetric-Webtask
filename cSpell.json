@@ -1,0 +1,13 @@
+{
+    "version": "0.1",
+    "language": "en",
+    "words": [
+    ],
+    "flagWords": [],
+    "ignorePaths": [
+        ".gitignore",
+        "cSpell.json",
+        "tslint.json",
+        "src/polyfills.ts"
+    ]
+}
