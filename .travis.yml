@@ -4,7 +4,7 @@ node_js:
 install:
   - npm install
   - npm i -g wt-cli
-  - wt init -p ci --url WT_URL --container WT_CONTAINER --token WT_TOKEN
+  - wt init --url WT_URL --container WT_CONTAINER --token WT_TOKEN
 script:
   - npm run lint
   - npm run style
