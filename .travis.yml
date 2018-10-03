@@ -7,3 +7,4 @@ script:
   - npm run lint
   - npm run style
   - npm run build
+  - npm test
