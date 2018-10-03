@@ -3,9 +3,9 @@ import { RecentGamesFetcher } from "./recent-games-fetcher";
 import { SummonerFetcher } from "./summoner-fetcher";
 
 export class StatsRouter {
-    private laMetricFormatter: LaMetricFormatter;
-    private recentGamesFetcher: RecentGamesFetcher;
-    private summonerFetcher: SummonerFetcher;
+    private readonly laMetricFormatter: LaMetricFormatter;
+    private readonly recentGamesFetcher: RecentGamesFetcher;
+    private readonly summonerFetcher: SummonerFetcher;
 
     constructor(apiKey: string) {
         this.laMetricFormatter = new LaMetricFormatter();

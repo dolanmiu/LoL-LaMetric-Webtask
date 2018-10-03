@@ -24,7 +24,7 @@ export class RegionConverter {
                 return "EUW1";
             case "las":
                 return "LA2";
-                // If they typed the v3 version
+            // If they typed the v3 version
             case "eun1":
                 return "EUN1";
             case "la1":

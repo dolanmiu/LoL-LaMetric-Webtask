@@ -8,7 +8,6 @@
     "tsc": "rimraf dist && tsc --p .",
     "deploy": "wt update lol-lametric dist/index.js -b",
     "build": "npm run tsc && copyfiles package.json dist",
-    "spell": "cspell \"src/**/!(*.wav|*.mp3).*\"",
     "style": "prettier -l \"src/**/*.ts\""
   },
   "repository": {

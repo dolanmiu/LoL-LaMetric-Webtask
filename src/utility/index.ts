@@ -1,5 +1,4 @@
 export class Utility {
-
     public static get currentRankedYear(): number {
         const currentDate = new Date();
         currentDate.setMonth(currentDate.getMonth() - 11);

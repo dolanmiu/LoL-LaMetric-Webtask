@@ -8,6 +8,7 @@
         ".gitignore",
         "cSpell.json",
         "tslint.json",
-        "src/polyfills.ts"
+        "src/polyfills.ts",
+        "package.json"
     ]
 }

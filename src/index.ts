@@ -1,8 +1,8 @@
 import "babel-polyfill";
 
+import { RegionConverter } from "./region-converter";
 import { StatsRouter } from "./stats";
 import { StatusRouter } from "./status";
-import { RegionConverter } from "./region-converter";
 
 const ERROR_RESPONSE: ILaMetricOutput = {
     frames: [
@@ -57,7 +57,7 @@ module.exports = async (context, cb) => {
     }
 };
 
-async function statsRoute(apiKey, name, region, cb): Promise<void> {
+async function statsRoute(apiKey: string, name: string, region: Region, cb: (err: Error, res: ILaMetricOutput) => void): Promise<void> {
     const stats = new StatsRouter(apiKey);
 
     if (name === undefined) {
@@ -80,7 +80,7 @@ async function statsRoute(apiKey, name, region, cb): Promise<void> {
     }
 }
 
-async function statusRoute(apiKey, region, cb): Promise<void> {
+async function statusRoute(apiKey: string, region: Region, cb: (err: Error, res: ILaMetricOutput) => void): Promise<void> {
     const stats = new StatusRouter(apiKey);
 
     try {

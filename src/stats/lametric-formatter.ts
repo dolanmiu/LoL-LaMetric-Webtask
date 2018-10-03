@@ -20,7 +20,7 @@ const SWORD_ICON_STRING = "i7620";
 const BROKEN_WARD_ICON = "i14341";
 
 export class LaMetricFormatter {
-    private champDictionary: ChampDictionary;
+    private readonly champDictionary: ChampDictionary;
 
     constructor() {
         this.champDictionary = new ChampDictionary();
