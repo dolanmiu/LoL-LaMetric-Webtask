@@ -4,6 +4,7 @@
   "description": "League of Legends LaMetric Webtask",
   "main": "dist/index.js",
   "scripts": {
+    "test": "node e2e/endpoint.spec.js",
     "lint": "tslint --project .",
     "tsc": "rimraf dist && tsc --p .",
     "deploy": "wt update lol-lametric dist/index.js -b",
@@ -18,6 +19,7 @@
   "license": "MIT",
   "homepage": "https://github.com/dolanmiu/LoL-LaMetric-Webtask#readme",
   "devDependencies": {
+    "chai": "^4.2.0",
     "copyfiles": "2.1.0",
     "prettier": "1.14.3",
     "rimraf": "2.6.2",

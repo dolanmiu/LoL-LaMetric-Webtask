@@ -31,7 +31,7 @@ export class RecentGamesFetcher {
                         return;
                     }
 
-                    this.fetchMatch(body.matches[0].gameId, accountId, body.matches[0].champion, region)
+                    this.fetchMatch(body.matches[0].gameId, body.matches[0].champion, region)
                         .then((participant) => {
                             resolve(participant);
                         })
@@ -43,7 +43,7 @@ export class RecentGamesFetcher {
         });
     }
 
-    private fetchMatch(matchId: number, accountId: number, championId: number, region: Region): Promise<MatchParticipant> {
+    private fetchMatch(matchId: number, championId: number, region: Region): Promise<MatchParticipant> {
         return new Promise<MatchParticipant>((resolve, reject) => {
             const url = `https://${region}.api.riotgames.com/lol/match/v3/matches/${matchId}?api_key=${this.apiKey}`;
             request(
@@ -58,9 +58,7 @@ export class RecentGamesFetcher {
                         return;
                     }
 
-                    const participant = body.participants.find((p, index) => {
-                        return p.championId === championId;
-                    });
+                    const participant = body.participants.find((p) => p.championId === championId);
 
                     resolve(participant);
                 },
