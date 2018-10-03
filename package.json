@@ -1,5 +1,5 @@
 {
-  "name": "lol-lametric-webtask",
+  "name": "lol-lametric",
   "version": "1.0.0",
   "description": "League of Legends LaMetric Webtask",
   "main": "dist/index.js",

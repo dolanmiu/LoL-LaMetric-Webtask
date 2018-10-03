@@ -1,39 +1,93 @@
 import "babel-polyfill";
 
 import { StatsRouter } from "./stats";
+import { StatusRouter } from "./status";
 import { RegionConverter } from "./region-converter";
 
-const stats = new StatsRouter("");
+const ERROR_RESPONSE: ILaMetricOutput = {
+    frames: [
+        {
+            text: `Error occurred when trying to get stats. Email dolan_miu@hotmail.com, so I can fix.`,
+        },
+    ],
+};
 
 module.exports = async (context, cb) => {
     const name = context.query.name as string;
-    const regionString = context.query.regionString as string;
+    const regionString = context.query.region as string;
+    const route = context.query.route as string;
 
-    if (name === undefined || regionString === undefined) {
-        cb({
+    console.log(`${name} from ${regionString} is requesting`);
+
+    if (regionString === undefined) {
+        cb(null, {
             frames: [
                 {
-                    text: "name and region cannot be empty",
-                },
-            ],
-        } as ILaMetricOutput);
-    }
-
-    let region;
-    try {
-        region = RegionConverter.convert(regionString);
-    } catch (e) {
-        cb({
-            frames: [
-                {
-                    text: `Unknown region ${regionString}`,
+                    text: "Region cannot be empty",
                 },
             ],
         } as ILaMetricOutput);
         return;
     }
 
-    const response = await stats.init(name, region);
+    let region: Region;
+    try {
+        region = RegionConverter.convert(regionString);
+    } catch (e) {
+        cb(null, {
+            frames: [
+                {
+                    text: `Unknown region ${regionString}`,
+                },
+            ],
+        } as ILaMetricOutput);
+        console.error("Entry Point", e);
+        return;
+    }
 
-    cb(null, response);
+    switch (route) {
+        case "stats":
+            statsRoute(context.secrets.RIOT_API_KEY, name, region, cb);
+            break;
+        case "status":
+            statusRoute(context.secrets.RIOT_API_KEY, region, cb);
+            break;
+        default:
+            cb(404);
+    }
 };
+
+async function statsRoute(apiKey, name, region, cb): Promise<void> {
+    const stats = new StatsRouter(apiKey);
+
+    if (name === undefined) {
+        cb(null, {
+            frames: [
+                {
+                    text: "name cannot be empty",
+                },
+            ],
+        } as ILaMetricOutput);
+        return;
+    }
+
+    try {
+        const response = await stats.init(name, region);
+        cb(null, response);
+    } catch (e) {
+        console.error("Stats Point", e);
+        cb(null, ERROR_RESPONSE);
+    }
+}
+
+async function statusRoute(apiKey, region, cb): Promise<void> {
+    const stats = new StatusRouter(apiKey);
+
+    try {
+        const response = await stats.init(region);
+        cb(null, response);
+    } catch (e) {
+        console.error("Status Route", e);
+        cb(null, ERROR_RESPONSE);
+    }
+}

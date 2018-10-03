@@ -14,20 +14,20 @@ export class SummonerFetcher {
             }, (error, response, body: Summoner & RiotError) => {
                 if (response === undefined || (error && response.statusCode !== 200)) {
                     reject(error);
-                    console.error(error);
+                    console.error("SummonerFetcher", error);
                     return;
                 }
 
                 if (body.status !== undefined) {
                     reject(body);
-                    console.error(JSON.stringify(body.status.message));
+                    console.error("SummonerFetcher", JSON.stringify(body.status.message));
                     return;
                 }
 
                 if (body === undefined) {
-                    reject("No summoner found");
-                    console.error("No summoner found");
-                    console.error(body.toString());
+                    reject("No Summoner found");
+                    console.error("No Summoner found");
+                    console.error("SummonerFetcher", body.toString());
                     return;
                 }
 

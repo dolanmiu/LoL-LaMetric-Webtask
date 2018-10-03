@@ -1,3 +1,5 @@
+import { ChampDictionary } from "../league/champ-dictionary";
+
 interface ILaMetricOutput {
     frames: ILaMetricFrame[];
 }
@@ -18,14 +20,14 @@ const SWORD_ICON_STRING = "i7620";
 const BROKEN_WARD_ICON = "i14341";
 
 export class LaMetricFormatter {
+    private champDictionary: ChampDictionary;
 
-    constructor(private champPromise: Promise<IChampTable>) {
+    constructor() {
+        this.champDictionary = new ChampDictionary();
     }
 
-    public format(lastGame: MatchParticipant): Promise<ILaMetricOutput> {
+    public async format(lastGame: MatchParticipant): Promise<ILaMetricOutput> {
         const frames: ILaMetricFrame[] = [];
-
-        console.debug(lastGame);
 
         frames.push({
             text: `${lastGame.stats.kills}/${lastGame.stats.deaths}/${lastGame.stats.assists}`,
@@ -79,20 +81,16 @@ export class LaMetricFormatter {
             icon: LOGO_ICON_STRING,
         });
 
-        return new Promise<ILaMetricOutput>((resolve) => {
-            this.champPromise.then((champTable) => {
-                frames.push({
-                    text: `${champTable[lastGame.championId].name}`,
-                    icon: LOGO_ICON_STRING,
-                });
+        const champTable = await this.champDictionary.fetch();
 
-                resolve({
-                    frames,
-                });
-
-                console.info(frames);
-            });
+        frames.push({
+            text: `${champTable[lastGame.championId].name}`,
+            icon: LOGO_ICON_STRING,
         });
+
+        return {
+            frames,
+        };
     }
 
     // private getRatio(firstNumber: number, secondNumber: number): string {

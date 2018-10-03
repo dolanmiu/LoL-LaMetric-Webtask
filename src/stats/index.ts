@@ -1,17 +1,14 @@
-import { ChampDictionary } from "../league/champ-dictionary";
 import { LaMetricFormatter } from "./lametric-formatter";
 import { RecentGamesFetcher } from "./recent-games-fetcher";
 import { SummonerFetcher } from "./summoner-fetcher";
 
 export class StatsRouter {
-    private champDictionary: ChampDictionary;
     private laMetricFormatter: LaMetricFormatter;
     private recentGamesFetcher: RecentGamesFetcher;
     private summonerFetcher: SummonerFetcher;
 
     constructor(apiKey: string) {
-        this.champDictionary = new ChampDictionary(apiKey);
-        this.laMetricFormatter = new LaMetricFormatter(this.champDictionary.fetch());
+        this.laMetricFormatter = new LaMetricFormatter();
         this.recentGamesFetcher = new RecentGamesFetcher(apiKey);
         this.summonerFetcher = new SummonerFetcher(apiKey);
     }
@@ -44,10 +41,11 @@ export class StatsRouter {
                     ],
                 };
             }
+            console.error("Stats", reason);
             return {
                 frames: [
                     {
-                        text: "Something went wrong with the server",
+                        text: "Cannot fetch last played game. Email dolan_miu@hotmail.com, so I can fix.",
                     },
                 ],
             };

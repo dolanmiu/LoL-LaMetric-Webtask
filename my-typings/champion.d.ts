@@ -1,8 +1,8 @@
 declare interface Champion {
-    id: number;
+    id: string;
     title: string;
     name: string;
-    key: string;
+    key: number;
 }
 
 declare interface ChampionResponse {
