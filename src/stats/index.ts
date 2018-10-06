@@ -1,4 +1,5 @@
 import { LaMetricFormatter } from "./lametric-formatter";
+import { PositionFetcher } from "./position-fetcher";
 import { RecentGamesFetcher } from "./recent-games-fetcher";
 import { SummonerFetcher } from "./summoner-fetcher";
 
@@ -6,15 +7,17 @@ export class StatsRouter {
     private readonly laMetricFormatter: LaMetricFormatter;
     private readonly recentGamesFetcher: RecentGamesFetcher;
     private readonly summonerFetcher: SummonerFetcher;
+    private readonly positionFetcher: PositionFetcher;
 
     constructor(apiKey: string) {
         this.laMetricFormatter = new LaMetricFormatter();
         this.recentGamesFetcher = new RecentGamesFetcher(apiKey);
         this.summonerFetcher = new SummonerFetcher(apiKey);
+        this.positionFetcher = new PositionFetcher(apiKey);
     }
 
     public async init(name: string, region: Region): Promise<ILaMetricOutput> {
-        let summoner;
+        let summoner: Summoner;
 
         try {
             summoner = await this.summonerFetcher.fetchSummoner(name, region);
@@ -28,7 +31,7 @@ export class StatsRouter {
             };
         }
 
-        let stats;
+        let stats: MatchParticipant;
         try {
             stats = await this.recentGamesFetcher.fetchLast(summoner.accountId, region);
         } catch (reason) {
@@ -50,6 +53,16 @@ export class StatsRouter {
                 ],
             };
         }
+
+        let positions: LeaguePosition[];
+        try {
+            positions = await this.positionFetcher.fetchPosition(summoner.id, region);
+        } catch (reason) {
+            console.error("Position", reason);
+            positions = [];
+        }
+
+        console.log(positions);
 
         const laMetricOutput = await this.laMetricFormatter.format(stats);
 
