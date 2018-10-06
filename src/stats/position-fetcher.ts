@@ -1,6 +1,6 @@
 import * as request from "request-promise";
 
-export class PositionsFetcher {
+export class PositionFetcher {
     constructor(private readonly apiKey: string) {}
 
     public async fetchPosition(summonerId: number, region: Region): Promise<LeaguePosition[]> {
