@@ -60,7 +60,7 @@ async function test() {
     response.should.all.have.property("losses");
     response.should.all.have.property("rank");
     response.should.all.have.property("tier");
-    response.should.all.have.property("leaguePdoints");
+    response.should.all.have.property("leaguePoints");
 }
 
 test();
