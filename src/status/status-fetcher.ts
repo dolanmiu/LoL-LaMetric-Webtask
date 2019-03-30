@@ -5,7 +5,8 @@ export class StatusFetcher {
 
     public fetch(region: Region): Promise<ServerStatus> {
         return new Promise<ServerStatus>((resolve, reject) => {
-            const url = `https://${region}.api.riotgames.com/lol/status/v4/shard-data?api_key=${this.apiKey}`;
+            const url = `https://${region}.api.riotgames.com/lol/status/v3/shard-data?api_key=${this.apiKey}`;
+            console.log(url);
             request(
                 url,
                 {
