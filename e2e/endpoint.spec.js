@@ -1,7 +1,7 @@
 const chai = require("chai");
 const request = require("request-promise");
 
-const apiKey = process.env.RIOT_API_KEY;
+const apiKey = "RGAPI-C0676FA0-BA1F-47F1-AD04-321D5DD6067E";
 
 const { expect } = chai;
 chai.should();
@@ -17,8 +17,8 @@ async function getEndPoint(url) {
 async function test() {
     let response = await getEndPoint(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/Deemon?api_key=${apiKey}`);
     expect(response).to.include({
-        id: 27692762,
-        accountId: 31506214,
+        id: "pgF2b5z51x3sEPpbVUU1xxWb2ZeQKPwNg1_viU0LtJUJ03s",
+        accountId: "qIvfAC3kJDBNSpAFxLOgtp7EmyyLeBSju6eEeL4licXUeA",
         name: "Deemon",
     });
 
@@ -32,7 +32,7 @@ async function test() {
         .to.have.property("data")
         .which.has.property("Aatrox");
 
-    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/31506214?api_key=${apiKey}`);
+    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/qIvfAC3kJDBNSpAFxLOgtp7EmyyLeBSju6eEeL4licXUeA?api_key=${apiKey}`);
     expect(response)
         .to.have.property("matches")
         .that.is.an("array").which.is.not.empty;
@@ -43,7 +43,7 @@ async function test() {
         .to.have.property("participants")
         .that.is.an("array").which.is.not.empty;
 
-    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/status/v4/shard-data?api_key=${apiKey}`);
+    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/status/v3/shard-data?api_key=${apiKey}`);
     expect(response).to.include({
         name: "EU West",
         slug: "euw",
@@ -53,7 +53,7 @@ async function test() {
         .to.have.property("services")
         .that.is.an("array").which.is.not.empty;
 
-    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/league/v4/positions/by-summoner/27692762?api_key=${apiKey}`);
+    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/league/v4/positions/by-summoner/pgF2b5z51x3sEPpbVUU1xxWb2ZeQKPwNg1_viU0LtJUJ03s?api_key=${apiKey}`);
     response.should.all.have.property("queueType");
     response.should.all.have.property("hotStreak");
     response.should.all.have.property("wins");
