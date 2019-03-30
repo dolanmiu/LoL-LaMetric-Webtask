@@ -9,7 +9,8 @@
     "tsc": "rimraf dist && tsc --p .",
     "deploy": "wt update lol-lametric dist/index.js -b",
     "build": "npm run tsc && copyfiles package.json dist",
-    "style": "prettier -l \"src/**/*.ts\""
+    "style": "prettier -l \"src/**/*.ts\"",
+    "serve": "npm run build && wt serve dist/index.js --hostname localhost --port 1234 --secrets-file secrets"
   },
   "repository": {
     "type": "git",

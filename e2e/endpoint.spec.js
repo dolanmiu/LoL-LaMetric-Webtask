@@ -15,7 +15,7 @@ async function getEndPoint(url) {
 }
 
 async function test() {
-    let response = await getEndPoint(`https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/Deemon?api_key=${apiKey}`);
+    let response = await getEndPoint(`https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/Deemon?api_key=${apiKey}`);
     expect(response).to.include({
         id: 27692762,
         accountId: 31506214,
@@ -32,18 +32,18 @@ async function test() {
         .to.have.property("data")
         .which.has.property("Aatrox");
 
-    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/match/v3/matchlists/by-account/31506214?api_key=${apiKey}`);
+    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/31506214?api_key=${apiKey}`);
     expect(response)
         .to.have.property("matches")
         .that.is.an("array").which.is.not.empty;
     expect(response).to.have.property("totalGames");
 
-    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/match/v3/matches/3728998694?api_key=${apiKey}`);
+    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/match/v4/matches/3728998694?api_key=${apiKey}`);
     expect(response)
         .to.have.property("participants")
         .that.is.an("array").which.is.not.empty;
 
-    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/status/v3/shard-data?api_key=${apiKey}`);
+    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/status/v4/shard-data?api_key=${apiKey}`);
     expect(response).to.include({
         name: "EU West",
         slug: "euw",
@@ -53,7 +53,7 @@ async function test() {
         .to.have.property("services")
         .that.is.an("array").which.is.not.empty;
 
-    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/league/v3/positions/by-summoner/27692762?api_key=${apiKey}`);
+    response = await getEndPoint(`https://euw1.api.riotgames.com/lol/league/v4/positions/by-summoner/27692762?api_key=${apiKey}`);
     response.should.all.have.property("queueType");
     response.should.all.have.property("hotStreak");
     response.should.all.have.property("wins");

@@ -53,6 +53,7 @@ module.exports = async (context, cb) => {
             statusRoute(context.secrets.RIOT_API_KEY, region, cb);
             break;
         default:
+            console.error("Error, no route found for: ", route);
             cb(404);
     }
 };
