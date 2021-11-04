@@ -30,54 +30,54 @@ export class LaMetricFormatter {
         const frames: ILaMetricFrame[] = [];
 
         frames.push({
-            text: `${lastGame.stats.kills}/${lastGame.stats.deaths}/${lastGame.stats.assists}`,
+            text: `${lastGame.kills}/${lastGame.deaths}/${lastGame.assists}`,
             icon: LOGO_KDA_ICON_STRING,
         });
 
         frames.push({
-            text: `${this.kFormatter(lastGame.stats.totalDamageDealt)} dmg done`,
+            text: `${this.kFormatter(lastGame.totalDamageDealt)} dmg done`,
             icon: SWORD_ICON_STRING,
         });
 
         frames.push({
-            text: `${this.kFormatter(lastGame.stats.totalDamageTaken)} dmg taken`,
+            text: `${this.kFormatter(lastGame.totalDamageTaken)} dmg taken`,
             icon: SWORD_ICON_STRING,
         });
 
         frames.push({
-            text: `${lastGame.stats.wardsPlaced} ward`,
+            text: `${lastGame.wardsPlaced} ward`,
             icon: WARD_ICON,
         });
 
         frames.push({
-            text: `${lastGame.stats.wardsKilled} ward`,
+            text: `${lastGame.wardsKilled} ward`,
             icon: BROKEN_WARD_ICON,
         });
 
         frames.push({
-            text: `${this.kFormatter(lastGame.stats.goldEarned)} G`,
+            text: `${this.kFormatter(lastGame.goldEarned)} G`,
             icon: COIN_ICON_STRING,
         });
 
         frames.push({
-            text: `${this.kFormatter(lastGame.stats.totalHeal)} HP`,
+            text: `${this.kFormatter(lastGame.totalHeal)} HP`,
             icon: LOGO_HEALING_ICON_STRING,
         });
 
         frames.push({
-            text: `${lastGame.stats.largestKillingSpree} Kill Streak`,
+            text: `${lastGame.largestKillingSpree} Kill Streak`,
             icon: LOGO_DEATH_ICON_STRING,
         });
 
-        // if (!!lastGame.stats.killingSprees && lastGame.stats.killingSprees > 1) {
+        // if (!!lastGame.killingSprees && lastGame.killingSprees > 1) {
         //     frames.push({
-        //         text: `${this.fetchSpree(lastGame.stats.killingSprees)}`,
+        //         text: `${this.fetchSpree(lastGame.killingSprees)}`,
         //         icon: LOGO_DEATH_ICON_STRING,
         //     });
         // }
 
         frames.push({
-            text: `${lastGame.stats.win ? "won" : "lost"}`,
+            text: `${lastGame.win ? "won" : "lost"}`,
             icon: LOGO_ICON_STRING,
         });
 

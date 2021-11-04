@@ -3,15 +3,18 @@ import * as request from "request";
 export class RecentGamesFetcher {
     constructor(private readonly apiKey: string) {}
 
-    public fetchLast(accountId: number, region: Region): Promise<MatchParticipant> {
+    public fetchLast(puuid: string, regionGroup: RegionGroup, summonerName: string): Promise<MatchParticipant> {
         return new Promise<MatchParticipant>((resolve, reject) => {
-            const url = `https://${region}.api.riotgames.com/lol/match/v4/matchlists/by-account/${accountId}?api_key=${this.apiKey}`;
+            const url = `https://${regionGroup}.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20&api_key=${
+                this.apiKey
+            }`;
+            console.log(url);
             request(
                 url,
                 {
                     json: true,
                 },
-                (error, response, body: MatchListResponse & RiotError) => {
+                (error, response, body: string[] & RiotError) => {
                     if (response === undefined || (error && response.statusCode !== 200)) {
                         reject(error);
                         console.error("RecentGamesFetcher", error);
@@ -24,14 +27,14 @@ export class RecentGamesFetcher {
                         return;
                     }
 
-                    if (body.matches.length === 0) {
+                    if (body.length === 0) {
                         const message = "No matches";
                         reject(message);
                         console.error("RecentGamesFetcher", message);
                         return;
                     }
 
-                    this.fetchMatch(body.matches[0].gameId, body.matches[0].champion, region)
+                    this.fetchMatch(body[0], summonerName, regionGroup)
                         .then((participant) => {
                             resolve(participant);
                         })
@@ -43,9 +46,10 @@ export class RecentGamesFetcher {
         });
     }
 
-    private fetchMatch(matchId: number, championId: number, region: Region): Promise<MatchParticipant> {
+    private fetchMatch(matchId: string, summonerName: string, regionGroup: RegionGroup): Promise<MatchParticipant> {
         return new Promise<MatchParticipant>((resolve, reject) => {
-            const url = `https://${region}.api.riotgames.com/lol/match/v4/matches/${matchId}?api_key=${this.apiKey}`;
+            const url = `https://${regionGroup}.api.riotgames.com/lol/match/v5/matches/${matchId}?api_key=${this.apiKey}`;
+            console.log(url);
             request(
                 url,
                 {
@@ -58,8 +62,8 @@ export class RecentGamesFetcher {
                         return;
                     }
 
-                    const participant = body.participants.find((p) => p.championId === championId);
-
+                    
+                    const participant = body.info.participants.find((p) => p.summonerName.toLowerCase() === summonerName.toLowerCase());
                     resolve(participant);
                 },
             );

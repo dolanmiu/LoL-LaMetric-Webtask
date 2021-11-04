@@ -1,5 +1,6 @@
+import { RegionConverter } from "../region-converter";
 import { LaMetricFormatter } from "./lametric-formatter";
-import { PositionFetcher } from "./position-fetcher";
+// import { PositionFetcher } from "./position-fetcher";
 import { RecentGamesFetcher } from "./recent-games-fetcher";
 import { SummonerFetcher } from "./summoner-fetcher";
 
@@ -7,16 +8,17 @@ export class StatsRouter {
     private readonly laMetricFormatter: LaMetricFormatter;
     private readonly recentGamesFetcher: RecentGamesFetcher;
     private readonly summonerFetcher: SummonerFetcher;
-    private readonly positionFetcher: PositionFetcher;
+    // private readonly positionFetcher: PositionFetcher;
 
     constructor(apiKey: string) {
         this.laMetricFormatter = new LaMetricFormatter();
         this.recentGamesFetcher = new RecentGamesFetcher(apiKey);
         this.summonerFetcher = new SummonerFetcher(apiKey);
-        this.positionFetcher = new PositionFetcher(apiKey);
+        // this.positionFetcher = new PositionFetcher(apiKey);
     }
 
     public async init(name: string, region: Region): Promise<ILaMetricOutput> {
+        const regionGroup = RegionConverter.convertToRegionGroup(region);
         let summoner: Summoner;
 
         try {
@@ -30,10 +32,9 @@ export class StatsRouter {
                 ],
             };
         }
-
         let stats: MatchParticipant;
         try {
-            stats = await this.recentGamesFetcher.fetchLast(summoner.accountId, region);
+            stats = await this.recentGamesFetcher.fetchLast(summoner.puuid, regionGroup, name);
         } catch (reason) {
             if (reason === "Private game") {
                 return {
@@ -54,15 +55,15 @@ export class StatsRouter {
             };
         }
 
-        let positions: LeaguePosition[];
-        try {
-            positions = await this.positionFetcher.fetchPosition(summoner.id, region);
-        } catch (reason) {
-            console.error("Position", reason);
-            positions = [];
-        }
+        // let positions: LeaguePosition[];
+        // try {
+        //     positions = await this.positionFetcher.fetchPosition(summoner.id, region);
+        // } catch (reason) {
+        //     console.error("Position", reason);
+        //     positions = [];
+        // }
 
-        console.log(positions);
+        // console.log(positions);
 
         const laMetricOutput = await this.laMetricFormatter.format(stats);
 

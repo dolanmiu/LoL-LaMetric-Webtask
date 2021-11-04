@@ -53,4 +53,26 @@ export class RegionConverter {
                 throw new Error(`Cannot find ${region}`);
         }
     }
+
+    public static convertToRegionGroup(region: Region): RegionGroup {
+        switch (region) {
+            case "EUN1":
+            case "EUW1":
+            case "TR1":
+            case "RU":
+                return "europe";
+            case "LA1":
+            case "LA2":
+            case "NA1":
+            case "BR1":
+            case "PBE1":
+                return "americas";
+            case "JP1":
+            case "KR":
+                return "asia";
+            case "OC1":
+            default:
+                throw new Error(`Cannot find ${region}`);
+        }
+    }
 }

@@ -5,4 +5,5 @@ declare interface Summoner {
     revisionDate: number;
     summonerLevel: number;
     accountId: number;
+    puuid: string;
 }

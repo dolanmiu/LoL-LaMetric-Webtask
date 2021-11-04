@@ -1,7 +1,7 @@
 const chai = require("chai");
 const request = require("request-promise");
 
-const apiKey = "RGAPI-C0676FA0-BA1F-47F1-AD04-321D5DD6067E";
+const apiKey = "RGAPI-ac0a0655-460a-424e-a525-006574c2ae00";
 
 const { expect } = chai;
 chai.should();
