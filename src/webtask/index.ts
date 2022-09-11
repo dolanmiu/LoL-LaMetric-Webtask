@@ -1,14 +1,6 @@
 import "babel-polyfill";
 
-import { RegionConverter, StatsRouter, StatusRouter } from "@common";
-
-const ERROR_RESPONSE: ILaMetricOutput = {
-  frames: [
-    {
-      text: `Error occurred when trying to get stats. Email dolan_miu@hotmail.com, so I can fix.`,
-    },
-  ],
-};
+import { ERROR_RESPONSE, RegionConverter, StatsRouter, StatusRouter } from "@common";
 
 module.exports = async (context, cb) => {
   const name = context.query.name as string;
