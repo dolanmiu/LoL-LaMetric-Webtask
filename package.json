@@ -8,8 +8,11 @@
     "lint": "tslint --project .",
     "tsc": "rimraf dist && tsc --p .",
     "deploy": "wt update lol-lametric dist/index.js -b",
-    "build": "npm run tsc && copyfiles package.json dist",
+    "build-webtask": "npm run tsc && copyfiles package.json dist",
+    "build-fastify": "rimraf dist && tsc -p . && tsc-alias -p .",
     "style": "prettier -l \"src/**/*.ts\"",
+    "prettier": "prettier -l \"./!(dist)/**/*.{ts,scss,html,js}\"",
+    "prettier:fix": "npm run prettier -- --write",
     "serve": "npm run build && wt serve dist/index.js --hostname localhost --port 1234 --secrets-file secrets"
   },
   "repository": {
@@ -25,8 +28,9 @@
     "copyfiles": "2.1.0",
     "prettier": "1.14.3",
     "rimraf": "2.6.2",
+    "tsc-alias": "^1.7.0",
     "tslint": "5.11.0",
-    "typescript": "3.0.3",
+    "typescript": "^4.8.3",
     "wt-cli": "11.0.0"
   },
   "dependencies": {

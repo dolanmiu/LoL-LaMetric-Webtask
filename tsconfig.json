@@ -7,7 +7,11 @@
         "outDir": "./dist",
         "sourceMap": false,
         "target": "es6",
-        "noUnusedLocals": true
+        "noUnusedLocals": true,
+        "baseUrl": "./",
+        "paths": {
+            "@common": ["./src/common/index"]
+        }
     },
     "exclude": ["./node_modules"]
 }

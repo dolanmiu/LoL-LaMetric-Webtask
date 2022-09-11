@@ -1,8 +1,8 @@
 interface ILaMetricOutput {
-    frames: ILaMetricFrame[];
+  frames: ILaMetricFrame[];
 }
 
 interface ILaMetricFrame {
-    text: string;
-    icon?: string;
+  text: string;
+  icon?: string;
 }
